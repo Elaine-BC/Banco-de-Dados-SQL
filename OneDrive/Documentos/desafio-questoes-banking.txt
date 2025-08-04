@@ -1,0 +1,18 @@
+1 Qual é o cliente com maior idade cadastrado?
+Informando o nome completo, data de nascimento e idade deste junto da query realizada para consulta.
+
+2 Qual é a conta com maior saldo?
+Informando junto do saldo (formatado em R$), o código da conta(id), nome e cpf do cliente junto da query realizada para consulta.
+
+3 Quantas 'conta-salário' estão cadastradas?
+Informando número total de contas-salário junto da query realizada para consulta.
+
+4 Informe quantos clientes categoria ouro estão cadastrados?
+
+5 Quais são os serviços oferecidos para os clientes da categoria premium?
+
+6 Quantas transações falharam?
+
+7 Qual é o tipo de movimento com maior quantidade de transações?
+
+8 Quais são os tipos de movimento disponíveis?
