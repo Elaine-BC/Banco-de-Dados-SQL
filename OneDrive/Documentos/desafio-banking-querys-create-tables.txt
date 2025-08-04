@@ -1,0 +1,82 @@
+/* Instrução para criar o database */
+CREATE DATABASE banking;
+
+/* Instrução para selecionar o banco */
+USE banking;
+
+/* Tabela cliente */
+CREATE TABLE cliente(
+	idCliente INT AUTO_INCREMENT NOT NULL,
+	nomeCompleto VARCHAR(200) NOT NULL,
+	primeiroNome VARCHAR(200) NOT NULL,
+	sobrenome VARCHAR(200) NOT NULL,
+	dataNascimento DATE NOT NULL,
+	PRIMARY KEY (idCliente)
+);
+
+/* Tabela categoria */
+CREATE TABLE categoria(
+	idCategoria INT AUTO_INCREMENT NOT NULL,
+	nomeCategoria VARCHAR(60),
+	PRIMARY KEY (idCategoria)
+);
+
+/* Tabela contaTipo */
+CREATE TABLE contaTipo(
+	idContaTipo INT AUTO_INCREMENT NOT NULL,
+	nome VARCHAR(60) NOT NULL,
+	PRIMARY KEY (idContaTipo) 
+);
+
+/* Tabela movimentoStatus */
+CREATE TABLE movimentoStatus(
+	idMovimentoStatus INT NOT NULL,
+	nomeStatus VARCHAR(60) NOT NULL,
+	PRIMARY KEY (idMovimentoStatus)
+);
+
+/* Tabela movimentoTipo */
+CREATE TABLE movimentoTipo(
+	idMovimentoTipo INT NOT NULL,
+	nomeTipo VARCHAR(60) NOT NULL,
+	PRIMARY KEY (idMovimentoTipo)
+);
+
+/* Tabela conta com chaves estrangeiras */
+CREATE TABLE conta(
+	idConta INT AUTO_INCREMENT,
+	cliente_id INT NOT NULL, 
+	tipo_id INT NOT NULL,
+	categoria_id INT NOT NULL,
+	valor INT NOT NULL,
+	PRIMARY KEY (idConta),
+	FOREIGN KEY (cliente_id) REFERENCES cliente(idCliente),
+	FOREIGN KEY (tipo_id) REFERENCES contaTipo(idContaTipo),
+	FOREIGN KEY (categoria_id) REFERENCES categoria(idCategoria)
+);
+
+/* Tabela contaServicos com chave estrangeira */
+CREATE TABLE contaServicos(
+	idContaServico INT AUTO_INCREMENT,
+	categoria_id INT NOT NULL, 
+	nome VARCHAR(60) NOT NULL,
+	quantidade INT NOT NULL,
+	taxa INT NOT NULL,
+	PRIMARY KEY (idContaServico),
+	FOREIGN KEY (categoria_id) REFERENCES categoria(idCategoria)
+);
+
+/* Tabela movimento com chaves estrangeiras */
+CREATE TABLE movimento(
+	idMovimento INT AUTO_INCREMENT,
+	valor INT NOT NULL,
+	cadastradoEm DATETIME,
+	atualizadoEm DATETIME,
+	tipo_id INT NOT NULL,
+	conta_id INT NOT NULL,
+	status_id INT NOT NULL,
+	PRIMARY KEY (idMovimento),
+	FOREIGN KEY (tipo_id) REFERENCES movimentoTipo(idMovimentoTipo),
+	FOREIGN KEY (conta_id) REFERENCES conta(idConta),
+	FOREIGN KEY (status_id) REFERENCES movimentoStatus(idMovimentoStatus)
+);
