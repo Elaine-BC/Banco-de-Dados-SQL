@@ -1,0 +1,86 @@
+----> Ex 1 Qual é o cliente com maior idade cadastrado?
+Informando o nome completo, data de nascimento e idade deste junto da query realizada para consulta.
+
+select nomeCompleto as 'Cliente', 
+dataNascimento as 'Data de nascimento', 
+year(from_days(to_days(now())-to_days(dataNascimento))) as 'Idade'
+from cliente
+order by (dataNascimento) asc
+
+
+-----> Ex 2 Qual é a conta com maior saldo?
+Informando junto do saldo (formatado em R$), o código da conta(id), nome e cpf do cliente junto da query realizada para consulta.
+
+select 
+cliente.nomeCompleto as 'Cliente',
+conta.valor as 'Saldo',
+conta.idConta as 'Id Conta'
+from cliente
+inner join conta
+on cliente.idCliente = conta.cliente_id
+order by conta.valor desc
+
+----> Ex 3 Quantas 'conta-salário' estão cadastradas?
+Informando número total de contas-salário junto da query realizada para consulta.
+
+select
+contatipo.nome as 'Tipo de conta',
+count(conta.idConta) as 'Total'
+from conta
+inner join contatipo
+on contatipo.idContaTipo = conta.tipo_id
+where contatipo.idContaTipo = 1
+group by contatipo.nome
+
+SELECT * FROM conta;
+
+----> Ex 4 Informe quantos clientes categoria ouro estão cadastrados?
+Informando número total de clientes junto da query realizada para consulta.
+
+select
+categoria.nomeCategoria as 'Categoria',
+count(conta.idConta) as 'Total'
+from conta
+inner join categoria
+on conta.categoria_id = categoria.idCategoria
+where categoria.idCategoria = 3
+group by categoria.nomeCategoria
+
+----> Ex 5 Quais são os serviços oferecidos para os clientes da categoria premium?
+Listando o nome de cada item, junto da query realizada para consulta.
+
+select
+categoria.nomeCategoria as 'Categoria',
+contaServicos.nome as 'Servico'
+from categoria
+inner join contaServicos
+on categoria.idCategoria = contaServicos.categoria_id
+where categoria.idCategoria = 4
+
+----> Ex 6 Quantas transações falharam?
+
+select
+movimentostatus.nomeStatus,
+count(movimentostatus.idMovimentoStatus)
+from movimentostatus
+inner join movimento
+on movimentostatus.idMovimentoStatus = movimento.status_id
+where movimentostatus.idmovimentostatus = 3
+group by movimentostatus.nomeStatus
+
+select count(idMovimento) from movimento
+
+----> - Ex 7 Qual é o tipo de movimento com maior quantidade de transações?
+
+select
+movimentotipo.nomeTipo,
+count(movimentotipo.idMovimentoTipo) as 'Transacoes'
+from movimentotipo
+inner join movimento
+on movimentotipo.idMovimentoTipo = movimento.tipo_id
+group by movimentotipo.nomeTipo
+order by transacoes desc
+
+----> Ex 8 Quais são os tipos de movimento disponíveis?
+
+SELECT * FROM movimentoTipo;
